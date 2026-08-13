@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sidebar Scrollbar */
+
+.sidebar-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+}
+
+/* Chrome, Edge */
+.sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 9999px;
+}
+
+/* Muncul saat hover */
+.sidebar-scroll:hover {
+    scrollbar-color: #475569 transparent;
+}
+
+.sidebar-scroll:hover::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.mobile-enter-active,
+.mobile-leave-active {
+    transition: all 0.25s ease;
+}
+
+.mobile-enter-from,
+.mobile-leave-to {
+    opacity: 0;
+
+    transform: translateY(-10px);
+}
