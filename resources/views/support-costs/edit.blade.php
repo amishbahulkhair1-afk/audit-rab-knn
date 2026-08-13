@@ -25,15 +25,13 @@
                     <!-- Kode & Nama Biaya -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="space-y-1.5">
-                            <label
-                                class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Kode</label>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Kode <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                             <input type="text" name="kode" value="{{ old('kode', $support_cost->kode) }}"
                                 class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                                 required>
                         </div>
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Nama
-                                Biaya</label>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Nama Biaya <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                             <input type="text" name="nama_biaya"
                                 value="{{ old('nama_biaya', $support_cost->nama_biaya) }}"
                                 class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
@@ -59,8 +57,7 @@
                             </select>
                         </div>
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Harga
-                                Satuan</label>
+                            <label class="block text-[10px] font-bold text-slate-700 uppercase tracking-wider">Harga Satuan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                             <input type="number" name="harga_satuan"
                                 value="{{ old('harga_satuan', $support_cost->harga_satuan) }}"
                                 class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"

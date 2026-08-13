@@ -23,26 +23,18 @@
 
         <div class="min-h-screen">
 
-
             @auth
 
                 @include('layouts.sidebar')
 
             @endauth
 
-            <div :class="sidebarMini ? 'lg:ml-20':'lg:ml-72'" class=" flex-1 bg-gray-100 transition-all duration-300">
+            <div :class="sidebarMini ? 'lg:ml-20' : 'lg:ml-72'" class="flex-1 bg-gray-100 transition-all duration-300">
 
                 @isset($header)
                     <header class="bg-white shadow">
                         <div class="px-6 py-4 flex items-center gap-4">
-                            <button @click="toggleSidebar"
-                                class="
-        lg:hidden
-        text-xl
-        p-2
-        rounded-lg
-        hover:bg-slate-100
-    ">
+                            <button @click="toggleSidebar" class="lg:hidden text-xl p-2 rounded-lg hover:bg-slate-100">
 
                                 ☰
 

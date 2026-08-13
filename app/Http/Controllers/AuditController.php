@@ -277,9 +277,15 @@ class AuditController extends Controller
             'rab.details.ahsp'
         ]);
 
+        $recommendation = RecommendationService::generate(
+            (object) $audit->details
+                ->pluck('nilai', 'komponen')
+                ->toArray()
+        );
+
         $pdf = Pdf::loadView(
             'audits.pdf',
-            compact('audit')
+            compact('audit', 'recommendation')
         );
 
         $pdf->setPaper('A4', 'portrait');

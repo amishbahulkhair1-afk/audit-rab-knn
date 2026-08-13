@@ -17,22 +17,10 @@
                 @csrf
 
                 <input type="file" name="excel" accept=".xlsx,.xls,.csv" required
-                    class="block w-full sm:w-auto text-sm
-               text-slate-600
-               border border-slate-300
-               rounded-lg
-               cursor-pointer
-               bg-white
-               p-2">
+                    class="block w-full sm:w-auto text-sm text-slate-600 border border-slate-300 rounded-lg cursor-pointer bg-white p-2">
 
                 <button type="submit"
-                    class="bg-emerald-600
-               hover:bg-emerald-700
-               text-white
-               px-5 py-2.5
-               rounded-lg
-               font-semibold
-               transition">
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold transition">
                     Import Excel
                 </button>
 

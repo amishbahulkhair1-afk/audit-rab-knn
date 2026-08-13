@@ -190,15 +190,13 @@
                             <!-- Row 1: Kode & Nama -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Kode
-                                        Bangunan</label>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Kode Bangunan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                     <input type="text" name="kode_bangunan"
                                         class="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                         required>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Nama
-                                        Bangunan</label>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Nama Bangunan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                     <input type="text" name="nama_bangunan"
                                         class="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                         required>
@@ -208,8 +206,7 @@
                             <!-- Row 2: Jenis Bangunan & Konstruksi -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Jenis
-                                        Bangunan</label>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Jenis Bangunan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                     <select name="jenis_bangunan"
                                         class="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                         required>
@@ -222,8 +219,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Jenis
-                                        Konstruksi</label>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Jenis Konstruksi <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                     <select name="jenis_konstruksi"
                                         class="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                         required>
@@ -239,7 +235,7 @@
                             <!-- Row 3: Rayon & Tahun -->
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Rayon</label>
+                                    <label class="block text-xs font-bold text-slate-500 uppercase mb-1.5">Rayon <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                     <input type="text" name="rayon"
                                         class="w-full border border-slate-200 rounded-lg p-2.5 focus:ring-2 focus:ring-emerald-500 outline-none transition"
                                         required>

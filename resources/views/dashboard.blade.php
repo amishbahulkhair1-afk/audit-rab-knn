@@ -35,9 +35,8 @@
         </div>
     </div>
     <div class="mt-8">
-    <a href="{{ route('buildings.index') }}"
-       class="bg-blue-600 text-white px-4 py-2 rounded">
-        Kelola Data Bangunan
-    </a>
-</div>
+        <a href="{{ route('buildings.index') }}" class="bg-blue-600 text-white px-4 py-2 rounded">
+            Kelola Data Bangunan
+        </a>
+    </div>
 </x-app-layout>

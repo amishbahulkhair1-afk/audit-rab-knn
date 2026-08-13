@@ -5,7 +5,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 Detail (AHSP)
             </h2>
-            <a href="{{ route('ahsps.index') }}" class="text-sm bg-gray-200 hover:bg-gray-600 text-gray-800 hover:text-white px-3 py-1.5 rounded-lg transition">
+            <a href="{{ route('ahsps.index') }}"
+                class="text-sm bg-gray-200 hover:bg-gray-600 text-gray-800 hover:text-white px-3 py-1.5 rounded-lg transition">
                 Kembali ke Indeks
             </a>
         </div>
@@ -14,7 +15,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg shadow-sm">
                     {{ session('success') }}
                 </div>
@@ -32,8 +33,8 @@
                     <div>
                         <span class="text-xs font-bold uppercase tracking-wider text-gray-400">Kode & Satuan</span>
                         <p class="text-base text-gray-700 mt-0.5">
-                            <span class="font-mono font-semibold">{{ $ahsp->kode ?? '-' }}</span> 
-                            <span class="text-gray-400 mx-1">|</span> 
+                            <span class="font-mono font-semibold">{{ $ahsp->kode ?? '-' }}</span>
+                            <span class="text-gray-400 mx-1">|</span>
                             <span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded text-xs font-semibold">
                                 Per {{ $ahsp->satuan }}
                             </span>
@@ -53,7 +54,7 @@
             <div class="flex justify-between items-center mb-4">
                 <h4 class="text-lg font-semibold text-gray-700">Rincian Komponen Koefisien</h4>
                 <a href="{{ route('ahsps.edit', $ahsp->id) }}"
-                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition">
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition">
                     + Kelola & Edit Rincian
                 </a>
             </div>
@@ -78,16 +79,19 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td class="p-3">
-                                        @if($detail->jenis === 'material')
-                                            <span class="px-2 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                                        @if ($detail->jenis === 'material')
+                                            <span
+                                                class="px-2 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-200">
                                                 Material / Bahan
                                             </span>
                                         @elseif($detail->jenis === 'labor')
-                                            <span class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200">
+                                            <span
+                                                class="px-2 py-1 rounded-md text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200">
                                                 Tenaga Kerja
                                             </span>
                                         @else
-                                            <span class="px-2 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                            <span
+                                                class="px-2 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                                                 Peralatan
                                             </span>
                                         @endif

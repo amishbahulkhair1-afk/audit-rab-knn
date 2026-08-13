@@ -187,13 +187,13 @@ const getItemsByJenis = (jenis) => {
 
     <!-- DATA UTAMA AHSP -->
     <div class="mb-4">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pekerjaan</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pekerjaan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
       <input type="text" name="nama_pekerjaan" v-model="namaPekerjaan"
         class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-200" required>
     </div>
 
     <div class="mb-6">
-      <label class="block text-sm font-medium text-gray-700 mb-1">Satuan</label>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Satuan <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
       <input type="text" name="satuan" v-model="satuan"
         class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-200" placeholder="Contoh: m3, m2, m', kg"
         required>

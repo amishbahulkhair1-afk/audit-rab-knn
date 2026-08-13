@@ -16,10 +16,10 @@
 
     <div class="py-10">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-            
+
             <div class="bg-white overflow-hidden shadow-xs sm:rounded-xl border border-gray-100 p-6 md:p-8">
                 <h3 class="text-sm font-bold text-gray-400 tracking-wide uppercase mb-6">Informasi Alat</h3>
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
                     <!-- Kode -->
                     <div class="p-4 bg-slate-50/60 rounded-lg border border-slate-100 space-y-1">
@@ -54,8 +54,8 @@
                         {{ __('Kembali') }}
                     </x-secondary-button>
 
-                    <a href="{{ route('equipments.edit', $equipment->id) }}" 
-                       class="inline-flex items-center px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold uppercase tracking-widest rounded-md shadow-xs transition duration-150">
+                    <a href="{{ route('equipments.edit', $equipment->id) }}"
+                        class="inline-flex items-center px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold uppercase tracking-widest rounded-md shadow-xs transition duration-150">
                         {{ __('Edit Data') }}
                     </a>
                 </div>

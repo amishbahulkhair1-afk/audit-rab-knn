@@ -17,36 +17,11 @@
 
             </div>
 
-
             {{-- Button Tambah Audit --}}
             <div>
 
                 <a href="{{ route('ahsps.create') }}"
-                    class="
-                inline-flex
-                items-center
-                gap-2
-
-                px-5
-                py-3
-
-                rounded-xl
-
-                bg-gradient-to-r
-                from-emerald-600
-                to-emerald-500
-
-                text-white
-
-                font-semibold
-
-                shadow-md
-
-                hover:shadow-lg
-
-                transition
-                ">
-
+                    class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 text-white font-semibold shadow-md hover:shadow-lg transition">
 
                     {{-- Hero Icon Plus --}}
 
@@ -56,17 +31,13 @@
 
                     </svg>
 
-
                     AHSP Baru
-
 
                 </a>
 
             </div>
 
-
         </div>
-
 
     </x-slot>
 

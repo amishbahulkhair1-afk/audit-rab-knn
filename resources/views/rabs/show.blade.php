@@ -69,7 +69,7 @@
                             </p>
 
                             <p class="mt-1 text-xl font-bold text-emerald-600">
-                                Rp {{ number_format($rab->total_biaya,0,',','.') }}
+                                Rp {{ number_format($rab->total_biaya, 0, ',', '.') }}
                             </p>
                         </div>
 
@@ -78,8 +78,6 @@
                 </div>
 
             </div>
-
-
 
             {{-- ===========================
             DETAIL PEKERJAAN
@@ -131,7 +129,6 @@
                         <tbody class="divide-y divide-slate-100">
 
                             @forelse($rab->details as $detail)
-
                                 <tr class="hover:bg-slate-50 transition">
 
                                     <td class="px-6 py-4">
@@ -147,11 +144,11 @@
                                     </td>
 
                                     <td class="px-6 py-4 text-right">
-                                        Rp {{ number_format($detail->harga_satuan,0,',','.') }}
+                                        Rp {{ number_format($detail->harga_satuan, 0, ',', '.') }}
                                     </td>
 
                                     <td class="px-6 py-4 text-right font-semibold text-slate-800">
-                                        Rp {{ number_format($detail->subtotal,0,',','.') }}
+                                        Rp {{ number_format($detail->subtotal, 0, ',', '.') }}
                                     </td>
 
                                 </tr>
@@ -160,46 +157,41 @@
 
                                 <tr>
 
-                                    <td colspan="5"
-                                        class="text-center py-10 text-slate-500">
+                                    <td colspan="5" class="text-center py-10 text-slate-500">
 
                                         Belum ada rincian pekerjaan.
 
                                     </td>
 
                                 </tr>
-
                             @endforelse
 
                         </tbody>
 
-                        @if($rab->details->count())
+                        @if ($rab->details->count())
+                            <tfoot class="bg-slate-50">
 
-                        <tfoot class="bg-slate-50">
+                                <tr>
 
-                            <tr>
+                                    <td colspan="4" class="px-6 py-4 text-right font-bold">
 
-                                <td colspan="4"
-                                    class="px-6 py-4 text-right font-bold">
+                                        TOTAL
 
-                                    TOTAL
+                                    </td>
 
-                                </td>
+                                    <td class="px-6 py-4 text-right">
 
-                                <td class="px-6 py-4 text-right">
+                                        <span class="text-lg font-bold text-emerald-600">
 
-                                    <span class="text-lg font-bold text-emerald-600">
+                                            Rp {{ number_format($rab->total_biaya, 0, ',', '.') }}
 
-                                        Rp {{ number_format($rab->total_biaya,0,',','.') }}
+                                        </span>
 
-                                    </span>
+                                    </td>
 
-                                </td>
+                                </tr>
 
-                            </tr>
-
-                        </tfoot>
-
+                            </tfoot>
                         @endif
 
                     </table>
@@ -208,28 +200,18 @@
 
             </div>
 
-
-
             {{-- ===========================
             ACTION
             ============================ --}}
             <div class="flex justify-end">
 
                 <a href="{{ route('rabs.index') }}"
-                    class="inline-flex items-center px-5 py-2.5
-                           bg-slate-700 hover:bg-slate-800
-                           text-white rounded-xl transition">
+                    class="inline-flex items-center px-5 py-2.5 bg-slate-700 hover:bg-slate-800 text-white rounded-xl transition">
 
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="w-5 h-5 mr-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
 
-                        <path stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 19l-7-7 7-7"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 
                     </svg>
 

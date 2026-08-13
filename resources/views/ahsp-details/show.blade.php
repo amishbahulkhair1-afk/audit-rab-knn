@@ -37,7 +37,7 @@
 
                 <div class="mt-6 pt-4 border-t">
                     <a href="{{ route('ahsp-details.index') }}"
-                       class="inline-block bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition shadow-sm">
+                        class="inline-block bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded transition shadow-sm">
                         Kembali
                     </a>
                 </div>

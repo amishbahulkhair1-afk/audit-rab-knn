@@ -13,11 +13,9 @@
         </div>
     </x-slot>
 
-
     <div class="py-10">
 
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-
 
             {{-- Error Validation --}}
             @if ($errors->any())
@@ -39,7 +37,6 @@
 
                     </div>
 
-
                     <ul class="list-disc ml-7 text-sm text-rose-600">
 
                         @foreach ($errors->all() as $error)
@@ -54,10 +51,7 @@
 
             @endif
 
-
-
             <div class="bg-white shadow-sm rounded-2xl border border-slate-100 overflow-hidden">
-
 
                 {{-- Header Card --}}
 
@@ -77,7 +71,6 @@
 
                         </div>
 
-
                         <div>
 
                             <h3 class="font-bold text-slate-800">
@@ -94,18 +87,13 @@
 
                 </div>
 
-
-
                 {{-- Form --}}
 
                 <div class="p-6 md:p-8">
 
-
                     <form action="{{ route('labors.store') }}" method="POST" class="space-y-6">
 
                         @csrf
-
-
 
                         {{-- Nama Pekerja --}}
 
@@ -118,12 +106,10 @@
 
                             </label>
 
-
                             <input type="text" name="nama_pekerja" value="{{ old('nama_pekerja') }}"
                                 placeholder="Contoh: Tukang Batu, Mandor, Pekerja Umum"
                                 class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-200 transition"
                                 required>
-
 
                             @error('nama_pekerja')
                                 <p class="text-sm text-rose-600 mt-2">
@@ -131,16 +117,11 @@
                                 </p>
                             @enderror
 
-
                         </div>
-
-
-
 
                         {{-- Upah Harian --}}
 
                         <div>
-
 
                             <label class="block text-sm font-semibold text-slate-700 mb-2">
 
@@ -149,26 +130,19 @@
 
                             </label>
 
-
-
                             <div class="relative">
-
 
                                 <span
                                     class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 font-semibold">
                                     Rp
                                 </span>
 
-
                                 <input type="number" name="upah_harian" value="{{ old('upah_harian') }}"
                                     placeholder="Contoh: 150000" min="0"
                                     class="w-full pl-12 rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-200 transition"
                                     required>
 
-
                             </div>
-
-
 
                             @error('upah_harian')
                                 <p class="text-sm text-rose-600 mt-2">
@@ -176,17 +150,11 @@
                                 </p>
                             @enderror
 
-
-
                         </div>
-
-
-
 
                         {{-- Footer Button --}}
 
                         <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
-
 
                             <a href="{{ route('labors.index') }}"
                                 class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition">
@@ -195,14 +163,10 @@
 
                             </a>
 
-
-
                             <button type="submit"
                                 class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold shadow-sm transition">
 
-
                                 <span class="flex items-center gap-2">
-
 
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 
@@ -211,32 +175,22 @@
 
                                     </svg>
 
-
                                     Simpan Data
-
 
                                 </span>
 
-
                             </button>
-
 
                         </div>
 
-
-
                     </form>
-
 
                 </div>
 
-
             </div>
-
 
         </div>
 
     </div>
-
 
 </x-app-layout>

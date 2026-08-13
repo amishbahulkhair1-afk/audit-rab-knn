@@ -8,7 +8,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            @if(session('success'))
+            @if (session('success'))
                 <div class="mb-4 p-4 bg-green-100 text-green-700 rounded">
                     {{ session('success') }}
                 </div>
@@ -16,7 +16,7 @@
 
             <!-- PANGGIL KOMPONEN VUE DI SINI -->
             <tabel-ahsp-detail :data-awal='@json($details->items())'>
-                
+
                 <!-- Kita kirim token CSRF Laravel ke dalam form Vue menggunakan slot -->
                 <template #form-tokens>
                     @csrf
