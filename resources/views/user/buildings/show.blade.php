@@ -1,9 +1,9 @@
 @extends('layouts.user')
 
 @section('content')
-    <div class="max-w-6xl mx-auto py-8">
+    <div>
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-slate-800">Detail Bangunan</h2>
                 <p class="text-slate-500 text-sm">Informasi lengkap dan riwayat audit {{ $building->nama_bangunan }}</p>
@@ -46,7 +46,7 @@
                 </div>
             </div>
 
-            <div class="mt-8 flex gap-3">
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
                 <button onclick="document.getElementById('modalEdit').classList.remove('hidden')"
                     class="bg-amber-500 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-amber-600 transition shadow-sm">
                     Edit Data
@@ -63,37 +63,23 @@
             <div class="px-6 py-5 border-b border-slate-50">
                 <h3 class="font-bold text-slate-800">Riwayat Audit</h3>
             </div>
-            <table class="w-full text-sm">
-                <thead class="bg-slate-50 text-slate-500 uppercase text-[10px] tracking-widest">
-                    <tr>
-                        <th class="px-6 py-4 text-left">Tanggal</th>
-                        <th class="px-6 py-4 text-left">Kondisi</th>
-                        <th class="px-6 py-4 text-left">Hasil KNN</th>
-                        <th class="px-6 py-4 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @forelse($building->audits as $audit)
-                        <tr class="hover:bg-slate-50 transition">
-                            <td class="px-6 py-4 text-slate-600">{{ $audit->created_at->format('d M Y') }}</td>
-                            <td class="px-6 py-4 font-medium text-slate-900">{{ $audit->kondisi ?? '-' }}</td>
-                            <td class="px-6 py-4">
-                                <span class="px-2 py-1 bg-slate-100 rounded-md text-slate-700 font-medium text-xs">
-                                    {{ $audit->knnResult->dataSet->kategori_kerusakan ?? 'Belum diproses' }}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-center">
-                                <a href="{{ route('audits.show', $audit->id) }}"
-                                    class="text-emerald-600 font-semibold hover:underline">Lihat</a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="p-8 text-center text-slate-400">Belum ada riwayat audit.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="grid grid-cols-1 gap-4 p-5 md:grid-cols-2">
+                @forelse($building->audits as $audit)
+                    <article class="rounded-2xl border border-slate-200/70 bg-slate-50/70 p-5 transition hover:border-emerald-200 hover:bg-emerald-50/40">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider text-slate-400">{{ $audit->nomor_audit }}</p>
+                                <p class="mt-1 font-semibold text-slate-900">{{ $audit->created_at->format('d M Y') }}</p>
+                            </div>
+                            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">{{ $audit->hasil_knn ?? 'Belum diproses' }}</span>
+                        </div>
+                        <p class="mt-4 text-sm text-slate-500">Kondisi: <span class="font-medium text-slate-700">{{ $audit->kondisi ?? 'Belum tersedia' }}</span></p>
+                        <a href="{{ route('audits.show', $audit->id) }}" class="mt-4 inline-flex items-center text-sm font-bold text-emerald-600 hover:text-emerald-700">Lihat detail <span class="ml-2">→</span></a>
+                    </article>
+                @empty
+                    <p class="col-span-full p-8 text-center text-sm text-slate-400">Belum ada riwayat audit.</p>
+                @endforelse
+            </div>
         </div>
     </div>
 

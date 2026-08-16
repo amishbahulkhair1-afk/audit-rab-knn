@@ -1,193 +1,143 @@
 <x-app-layout>
 
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <div>
-                <h2 class="font-semibold text-xl text-slate-800 leading-tight">
-                    {{ __('Tambah Data Upah') }}
-                </h2>
-                <p class="text-xs text-slate-500 mt-1">
-                    Tambahkan data tenaga kerja dan standar upah harian
-                </p>
-            </div>
-        </div>
+        Tambah Pekerja
     </x-slot>
 
-    <div class="py-10">
+    <div class="space-y-5">
 
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        {{-- =========================================
+             HERO / HEADER CARD
+        ========================================== --}}
+        <div
+            class="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-500 p-5 md:p-6 text-white shadow-xl">
 
-            {{-- Error Validation --}}
-            @if ($errors->any())
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_45%)]">
+            </div>
 
-                <div class="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl">
+            <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                    <div class="flex items-center gap-2 mb-2">
+                <div class="flex items-start gap-4">
 
-                        <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-white/15 border border-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-
-                        <span class="font-semibold text-rose-700">
-                            Terdapat kesalahan input
-                        </span>
-
                     </div>
 
-                    <ul class="list-disc ml-7 text-sm text-rose-600">
-
-                        @foreach ($errors->all() as $error)
-                            <li>
-                                {{ $error }}
-                            </li>
-                        @endforeach
-
-                    </ul>
-
-                </div>
-
-            @endif
-
-            <div class="bg-white shadow-sm rounded-2xl border border-slate-100 overflow-hidden">
-
-                {{-- Header Card --}}
-
-                <div class="px-6 py-5 border-b border-slate-100 bg-slate-50">
-
-                    <div class="flex items-center gap-3">
-
-                        <div class="p-3 bg-indigo-100 rounded-xl">
-
-                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-
-                            </svg>
-
-                        </div>
-
-                        <div>
-
-                            <h3 class="font-bold text-slate-800">
-                                Informasi Tenaga Kerja
-                            </h3>
-
-                            <p class="text-xs text-slate-500">
-                                Masukkan data pekerja dan nilai upah
-                            </p>
-
-                        </div>
-
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-white/70 mb-1">
+                            Master Data
+                        </p>
+                        <h1 class="text-xl md:text-2xl font-bold leading-tight">
+                            Tambah Data Tenaga Kerja
+                        </h1>
+                        <p class="text-xs md:text-sm text-white/80 mt-1">
+                            Lengkapi data tenaga kerja konstruksi beserta standar upah harian.
+                        </p>
                     </div>
 
                 </div>
 
-                {{-- Form --}}
-
-                <div class="p-6 md:p-8">
-
-                    <form action="{{ route('labors.store') }}" method="POST" class="space-y-6">
-
-                        @csrf
-
-                        {{-- Nama Pekerja --}}
-
-                        <div>
-
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">
-
-                                Nama Pekerja
-                                <span class="text-rose-500">*</span>
-
-                            </label>
-
-                            <input type="text" name="nama_pekerja" value="{{ old('nama_pekerja') }}"
-                                placeholder="Contoh: Tukang Batu, Mandor, Pekerja Umum"
-                                class="w-full rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-200 transition"
-                                required>
-
-                            @error('nama_pekerja')
-                                <p class="text-sm text-rose-600 mt-2">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-
-                        </div>
-
-                        {{-- Upah Harian --}}
-
-                        <div>
-
-                            <label class="block text-sm font-semibold text-slate-700 mb-2">
-
-                                Upah Harian
-                                <span class="text-rose-500">*</span>
-
-                            </label>
-
-                            <div class="relative">
-
-                                <span
-                                    class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400 font-semibold">
-                                    Rp
-                                </span>
-
-                                <input type="number" name="upah_harian" value="{{ old('upah_harian') }}"
-                                    placeholder="Contoh: 150000" min="0"
-                                    class="w-full pl-12 rounded-xl border-slate-300 focus:border-indigo-500 focus:ring-indigo-200 transition"
-                                    required>
-
-                            </div>
-
-                            @error('upah_harian')
-                                <p class="text-sm text-rose-600 mt-2">
-                                    {{ $message }}
-                                </p>
-                            @enderror
-
-                        </div>
-
-                        {{-- Footer Button --}}
-
-                        <div class="flex justify-end gap-3 pt-6 border-t border-slate-100">
-
-                            <a href="{{ route('labors.index') }}"
-                                class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition">
-
-                                Batal
-
-                            </a>
-
-                            <button type="submit"
-                                class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold shadow-sm transition">
-
-                                <span class="flex items-center gap-2">
-
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M5 13l4 4L19 7" />
-
-                                    </svg>
-
-                                    Simpan Data
-
-                                </span>
-
-                            </button>
-
-                        </div>
-
-                    </form>
-
-                </div>
+                <a href="{{ route('labors.index') }}"
+                    class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/20 hover:bg-white/30 text-white px-4 py-2.5 text-xs font-semibold backdrop-blur-sm border border-white/20 transition whitespace-nowrap self-start sm:self-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali
+                </a>
 
             </div>
+
+        </div>
+
+        {{-- =========================================
+             ALERT VALIDATION
+        ========================================== --}}
+        @if ($errors->any())
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700 shadow-sm">
+                <div class="flex items-center gap-2 font-semibold mb-2">
+                    <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Terdapat beberapa kesalahan input:
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        {{-- =========================================
+             FORM CARD
+        ========================================== --}}
+        <div class="glass-surface rounded-3xl overflow-hidden p-6 md:p-8">
+
+            <form action="{{ route('labors.store') }}" method="POST" class="space-y-6 max-w-3xl">
+
+                @csrf
+
+                <!-- Nama Pekerja -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Nama Tenaga Kerja / Posisi <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" name="nama_pekerja" value="{{ old('nama_pekerja') }}"
+                        placeholder="Contoh: Tukang Batu, Tukang Kayu, Mandor, Pekerja"
+                        class="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-800 shadow-sm focus:border-rose-400 focus:ring-2 focus:ring-rose-200/50 outline-none transition"
+                        required>
+                    @error('nama_pekerja')
+                        <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Upah Harian -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Upah Harian (Rp/Hari) <span class="text-rose-500">*</span>
+                    </label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-3 text-sm font-semibold text-slate-400">
+                            Rp
+                        </span>
+                        <input type="number" name="upah_harian" value="{{ old('upah_harian') }}"
+                            min="0" placeholder="0"
+                            class="w-full rounded-2xl border border-slate-200 bg-white/70 pl-11 pr-4 py-3 text-sm text-slate-800 shadow-sm focus:border-rose-400 focus:ring-2 focus:ring-rose-200/50 outline-none transition"
+                            required>
+                    </div>
+                    @error('upah_harian')
+                        <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-6 border-t border-slate-200/60 flex items-center justify-end gap-3">
+
+                    <a href="{{ route('labors.index') }}"
+                        class="px-5 py-2.5 rounded-2xl border border-slate-200 bg-white text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
+                        Batal
+                    </a>
+
+                    <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 rounded-2xl bg-rose-600 px-6 py-2.5 text-xs font-semibold text-white shadow-lg shadow-rose-600/30 hover:bg-rose-700 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Simpan Data
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 

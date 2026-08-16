@@ -84,14 +84,14 @@ class AuditController extends Controller
             'sanitasi' => 'required|integer|min:1|max:5',
         ]);
 
-        $lastAudit = Audit::latest()->first();
+        // Hanya hitung nomor AUD-*; tabel juga dapat berisi nomor DEMO-AUD-*.
+        $newNumber = Audit::query()
+            ->where('nomor_audit', 'like', 'AUD-%')
+            ->pluck('nomor_audit')
+            ->map(fn (string $nomor) => (int) substr($nomor, 4))
+            ->max() ?? 0;
 
-        if ($lastAudit) {
-            $lastNumber = (int) substr($lastAudit->nomor_audit, 4);
-            $newNumber = $lastNumber + 1;
-        } else {
-            $newNumber = 1;
-        }
+        $newNumber++;
 
         $nomorAudit = 'AUD-' . str_pad($newNumber, 3, '0', STR_PAD_LEFT);
 
@@ -206,8 +206,6 @@ class AuditController extends Controller
         $audit->update([
             'hasil_knn' => $hasilKnn
         ]);
-
-        $recommendation = RecommendationService::generate($request);
 
         Rab::create([
             'nomor_rab' => 'RAB-' . str_pad(

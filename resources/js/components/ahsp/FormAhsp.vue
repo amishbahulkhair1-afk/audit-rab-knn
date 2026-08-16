@@ -10,7 +10,22 @@ const props = defineProps({
     type: String,
     required: true
   },
-  // 1. Tambahkan prop baru untuk menerima data lama dari Laravel
+  materials: {
+    type: Array,
+    default: () => []
+  },
+  labors: {
+    type: Array,
+    default: () => []
+  },
+  equipments: {
+    type: Array,
+    default: () => []
+  },
+  supportCosts: {
+    type: Array,
+    default: () => []
+  },
   dataLama: {
     type: Object,
     default: null
@@ -25,15 +40,7 @@ const props = defineProps({
 const namaPekerjaan = ref('');
 const satuan = ref('');
 const detailItems = ref([]);
-const materials = ref([]);
-const labors = ref([]);
-const equipments = ref([]);
-const supportCosts = ref([]);
-
-// 2. Gunakan onMounted untuk mengisi form jika dalam mode edit
-onMounted(async () => {
-
-  await loadMasterData();
+onMounted(() => {
 
   if (props.isEdit && props.dataLama) {
 
@@ -82,7 +89,7 @@ const tambahBaris = () => {
 
     item_id: '',
 
-    koefisien: 0
+    koefisien: 1
 
   });
 };
@@ -96,85 +103,10 @@ const hapusBaris = (index) => {
   }
 };
 
-const loadMasterData = async () => {
-
-  materials.value = await fetch('/api/materials')
-    .then(res => res.json());
-
-
-  labors.value = await fetch('/api/labors')
-    .then(res => res.json());
-
-
-  equipments.value = await fetch('/api/equipments')
-    .then(res => res.json());
-
-
-  supportCosts.value = await fetch('/api/support-costs')
-    .then(res => res.json());
-
+const gantiJenis = (item) => {
+  item.item_id = '';
 };
 
-const getItemsByJenis = (jenis) => {
-
-  switch (jenis) {
-
-    case 'material':
-      return materials.value;
-
-    case 'labor':
-      return labors.value;
-
-    case 'equipment':
-      return equipments.value;
-
-    case 'support_cost':
-      return supportCosts.value;
-
-    default:
-      return [];
-
-  }
-
-  const props = defineProps({
-
-    urlAction: {
-      type: String,
-      required: true
-    },
-
-    csrfToken: {
-      type: String,
-      required: true
-    },
-
-
-    materials: {
-      type: Array,
-      default: () => []
-    },
-
-
-    labors: {
-      type: Array,
-      default: () => []
-    },
-
-
-    equipments: {
-      type: Array,
-      default: () => []
-    },
-
-
-    supportCosts: {
-      type: Array,
-      default: () => []
-    }
-
-  })
-
-};  
 </script>
 
 <template>
@@ -217,7 +149,7 @@ const getItemsByJenis = (jenis) => {
         <!-- Pilihan Jenis -->
         <div class="w-1/4">
           <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Jenis</label>
-          <select :name="`details[${index}][jenis]`" v-model="item.jenis" class="w-full border rounded p-2 bg-white">
+          <select :name="`details[${index}][jenis]`" v-model="item.jenis" @change="gantiJenis(item)" class="w-full border rounded p-2 bg-white" required>
             <option value="material">
               Material
             </option>
@@ -239,7 +171,7 @@ const getItemsByJenis = (jenis) => {
         <!-- Nama Item Komponen -->
         <div class="flex-1">
           <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Nama Item Komponen</label>
-          <select :name="`details[${index}][item_id]`" v-model="item.item_id" class="w-full border rounded p-2">
+          <select :name="`details[${index}][item_id]`" v-model="item.item_id" class="w-full border rounded p-2" required>
 
 
             <option value="">
@@ -248,7 +180,7 @@ const getItemsByJenis = (jenis) => {
 
 
 
-            <option v-if="item.jenis === 'material'" v-for="m in materials" :value="m.id">
+            <option v-if="item.jenis === 'material'" v-for="m in props.materials" :key="`material-${m.id}`" :value="m.id">
 
               {{ m.nama_bahan }}
 
@@ -256,7 +188,7 @@ const getItemsByJenis = (jenis) => {
 
 
 
-            <option v-if="item.jenis === 'labor'" v-for="l in labors" :value="l.id">
+            <option v-if="item.jenis === 'labor'" v-for="l in props.labors" :key="`labor-${l.id}`" :value="l.id">
 
               {{ l.nama_pekerja }}
 
@@ -264,7 +196,7 @@ const getItemsByJenis = (jenis) => {
 
 
 
-            <option v-if="item.jenis === 'equipment'" v-for="e in equipments" :value="e.id">
+            <option v-if="item.jenis === 'equipment'" v-for="e in props.equipments" :key="`equipment-${e.id}`" :value="e.id">
 
               {{ e.nama_alat }}
 
@@ -272,7 +204,7 @@ const getItemsByJenis = (jenis) => {
 
 
 
-            <option v-if="item.jenis === 'support_cost'" v-for="s in supportCosts" :value="s.id">
+            <option v-if="item.jenis === 'support_cost'" v-for="s in props.supportCosts" :key="`support-cost-${s.id}`" :value="s.id">
 
               {{ s.nama_biaya }}
 
@@ -285,7 +217,7 @@ const getItemsByJenis = (jenis) => {
         <!-- Nilai Koefisien -->
         <div class="w-1/4">
           <label class="block text-xs font-semibold text-gray-600 mb-1 uppercase">Koefisien</label>
-          <input type="number" step="0.0001" :name="`details[${index}][koefisien]`" v-model.number="item.koefisien"
+          <input type="number" min="0.0001" step="0.0001" :name="`details[${index}][koefisien]`" v-model.number="item.koefisien"
             class="w-full border rounded p-2 bg-white text-center font-mono" required>
         </div>
 
@@ -311,7 +243,7 @@ const getItemsByJenis = (jenis) => {
       </a>
       <button type="submit"
         class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow transition font-semibold">
-        Simpan Perubahan
+        {{ isEdit ? 'Simpan Perubahan' : 'Simpan AHSP' }}
       </button>
     </div>
   </form>

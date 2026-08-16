@@ -32,17 +32,20 @@ class AhspController extends Controller
 
             'supportCosts' => SupportCost::all(),
 
+            'masterData' => $this->masterData(),
+
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-
-            'nama_pekerjaan' => 'required',
-            'satuan' => 'required',
-
-            'details' => 'required|array',
+            'nama_pekerjaan' => 'required|string|max:255',
+            'satuan' => 'required|string|max:50',
+            'details' => 'required|array|min:1',
+            'details.*.jenis' => 'required|in:material,labor,equipment,support_cost',
+            'details.*.item_id' => 'required|integer',
+            'details.*.koefisien' => 'required|numeric|min:0.0001',
 
         ]);
 
@@ -94,15 +97,33 @@ class AhspController extends Controller
 
     public function edit(Ahsp $ahsp)
     {
-        return view('ahsps.edit', compact('ahsp'));
+        return view('ahsps.edit', [
+            'ahsp' => $ahsp,
+            'materials' => Material::all(),
+            'labors' => Labor::all(),
+            'equipments' => Equipment::all(),
+            'supportCosts' => SupportCost::all(),
+            'masterData' => $this->masterData(),
+            'detailData' => $ahsp->details->map(function (AhspDetail $detail): array {
+                return [
+                    'id' => $detail->id,
+                    'jenis' => $detail->jenis,
+                    'item_id' => $detail->item_id,
+                    'koefisien' => $detail->koefisien,
+                ];
+            })->values()->all(),
+        ]);
     }
 
     public function update(Request $request, Ahsp $ahsp)
     {
         $request->validate([
-            'nama_pekerjaan' => 'required',
-            'satuan' => 'required',
-            'details' => 'required|array',
+            'nama_pekerjaan' => 'required|string|max:255',
+            'satuan' => 'required|string|max:50',
+            'details' => 'required|array|min:1',
+            'details.*.jenis' => 'required|in:material,labor,equipment,support_cost',
+            'details.*.item_id' => 'required|integer',
+            'details.*.koefisien' => 'required|numeric|min:0.0001',
         ]);
 
         DB::transaction(function () use ($request, $ahsp) {
@@ -165,5 +186,23 @@ class AhspController extends Controller
         return redirect()
             ->route('ahsps.index')
             ->with('success', 'Data AHSP berhasil dihapus');
+    }
+
+    private function masterData(): array
+    {
+        return [
+            'material' => Material::all()->map(function (Material $item): array {
+                return ['id' => $item->id, 'label' => $item->nama_bahan];
+            })->values()->all(),
+            'labor' => Labor::all()->map(function (Labor $item): array {
+                return ['id' => $item->id, 'label' => $item->nama_pekerja];
+            })->values()->all(),
+            'equipment' => Equipment::all()->map(function (Equipment $item): array {
+                return ['id' => $item->id, 'label' => $item->nama_alat];
+            })->values()->all(),
+            'support_cost' => SupportCost::all()->map(function (SupportCost $item): array {
+                return ['id' => $item->id, 'label' => $item->nama_biaya];
+            })->values()->all(),
+        ];
     }
 }

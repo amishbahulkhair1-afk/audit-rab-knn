@@ -26,7 +26,14 @@ class RecommendationService
 
         foreach ($components as $field => $nama) {
 
-            $nilai = $request->$field;
+            // Detail lama dapat memakai huruf kapital atau tidak lengkap.
+            $nilai = data_get($request, $field);
+
+            if ($nilai === null) {
+                $nilai = data_get($request, ucfirst($field));
+            }
+
+            $nilai = is_numeric($nilai) ? (int) $nilai : null;
 
             $status = "";
             $rekomendasi = "";
@@ -131,6 +138,15 @@ class RecommendationService
                     }
 
                     $prioritas = "Tinggi";
+
+                    break;
+
+                default:
+
+                    $status = "Belum Dinilai";
+                    $rekomendasi = "Belum ada nilai untuk komponen ini.";
+                    $risiko = "Belum dapat ditentukan.";
+                    $level = "-";
 
                     break;
 

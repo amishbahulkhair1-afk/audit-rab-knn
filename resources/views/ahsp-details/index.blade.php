@@ -15,15 +15,17 @@
             @endif
 
             <!-- PANGGIL KOMPONEN VUE DI SINI -->
-            <tabel-ahsp-detail :data-awal='@json($details->items())'>
+            <div id="app">
+                <tabel-ahsp-detail :data-awal='@json($details->items())'>
 
-                <!-- Kita kirim token CSRF Laravel ke dalam form Vue menggunakan slot -->
-                <template #form-tokens>
-                    @csrf
-                    @method('DELETE')
-                </template>
+                    <!-- Kita kirim token CSRF Laravel ke dalam form Vue menggunakan slot -->
+                    <template #form-tokens>
+                        @csrf
+                        @method('DELETE')
+                    </template>
 
-            </tabel-ahsp-detail>
+                </tabel-ahsp-detail>
+            </div>
 
             <!-- Pagination bawaan Laravel tetap di luar komponen Vue -->
             <div class="p-4">

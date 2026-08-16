@@ -21,6 +21,48 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->get('/search', function (\Illuminate\Http\Request $request) {
+    $q = trim((string) $request->query('q', ''));
+    $buildings = collect();
+    $audits = collect();
+    $rabs = collect();
+
+    if ($q !== '') {
+        $like = '%' . addcslashes($q, '%_\\') . '%';
+
+        $buildings = \App\Models\Building::query()
+            ->where(function ($query) use ($like) {
+                $query->where('nama_bangunan', 'like', $like)
+                    ->orWhere('kode_bangunan', 'like', $like)
+                    ->orWhere('alamat', 'like', $like);
+            })->latest()->limit(12)->get();
+
+        $audits = \App\Models\Audit::with('building')
+            ->where(function ($query) use ($like) {
+                $query->where('nomor_audit', 'like', $like)
+                    ->orWhere('hasil_knn', 'like', $like)
+                    ->orWhereHas('building', fn ($building) => $building->where('nama_bangunan', 'like', $like));
+            })->latest()->limit(12)->get();
+
+        $rabs = \App\Models\Rab::with('audit.building')
+            ->where(function ($query) use ($like) {
+                $query->where('nomor_rab', 'like', $like)
+                    ->orWhereHas('audit', function ($audit) use ($like) {
+                        $audit->where('nomor_audit', 'like', $like)
+                            ->orWhereHas('building', fn ($building) => $building->where('nama_bangunan', 'like', $like));
+                    });
+            })->latest()->limit(12)->get();
+    }
+
+    return view('search.index', compact('q', 'buildings', 'audits', 'rabs'));
+})->name('search');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/settings', function () {
+        return view('settings.index');
+    })->name('settings.index');
+});
+
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
@@ -129,5 +171,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
 

@@ -1,206 +1,179 @@
 <x-app-layout>
 
     <x-slot name="header">
-
-        <div class="flex justify-between items-center">
-
-            <h2 class="font-semibold text-xl text-slate-800 leading-tight">
-                Edit Material
-            </h2>
-
-        </div>
-
+        Edit Material
     </x-slot>
 
-    <div class="py-10">
+    <div class="space-y-5">
 
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        {{-- =========================================
+             HERO / HEADER CARD
+        ========================================== --}}
+        <div
+            class="relative overflow-hidden rounded-[28px] bg-gradient-to-r from-indigo-500 via-blue-500 to-violet-500 p-5 md:p-6 text-white shadow-xl">
 
-            <div class="bg-white shadow-sm rounded-xl border border-slate-100 overflow-hidden">
+            <div
+                class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.18),transparent_45%)]">
+            </div>
 
-                <!-- HEADER CARD -->
+            <div class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                <div class="px-6 py-5 bg-slate-50 border-b border-slate-100">
+                <div class="flex items-start gap-4">
 
-                    <h3 class="text-lg font-bold text-slate-800">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-white/15 border border-white/20 backdrop-blur-sm flex items-center justify-center shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
+                    </div>
 
-                        Edit Data Material
-
-                    </h3>
-
-                    <p class="text-sm text-slate-500 mt-1">
-
-                        Perbarui informasi bahan material pembangunan.
-
-                    </p>
-
-                    <div class="mt-3">
-
-                        <span
-                            class="inline-flex px-3 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100 rounded-lg">
-
-                            Ref ID : #{{ $material->id }}
-
-                        </span>
-
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
+                                Master Data
+                            </span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-bold">
+                                #{{ $material->kode ?? 'M' . str_pad($material->id, 3, '0', STR_PAD_LEFT) }}
+                            </span>
+                        </div>
+                        <h1 class="text-xl md:text-2xl font-bold leading-tight">
+                            Edit: {{ $material->nama_bahan }}
+                        </h1>
+                        <p class="text-xs md:text-sm text-white/80 mt-1">
+                            Perbarui informasi harga dan spesifikasi bahan material.
+                        </p>
                     </div>
 
                 </div>
 
-                <!-- FORM -->
+                <a href="{{ route('materials.index') }}"
+                    class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white/20 hover:bg-white/30 text-white px-4 py-2.5 text-xs font-semibold backdrop-blur-sm border border-white/20 transition whitespace-nowrap self-start sm:self-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali
+                </a>
 
-                <div class="p-6 md:p-8">
+            </div>
 
-                    <form action="{{ route('materials.update', $material->id) }}" method="POST" class="space-y-6">
+        </div>
 
-                        @csrf
+        {{-- =========================================
+             ALERT VALIDATION
+        ========================================== --}}
+        @if ($errors->any())
+            <div class="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-sm text-rose-700 shadow-sm">
+                <div class="flex items-center gap-2 font-semibold mb-2">
+                    <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Terdapat beberapa kesalahan input:
+                </div>
+                <ul class="list-disc pl-5 space-y-1 text-xs">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-                        @method('PUT')
+        {{-- =========================================
+             FORM CARD
+        ========================================== --}}
+        <div class="glass-surface rounded-3xl overflow-hidden p-6 md:p-8">
 
-                        <!-- Nama Bahan -->
+            <form action="{{ route('materials.update', $material->id) }}" method="POST" class="space-y-6 max-w-3xl">
 
-                        <div>
+                @csrf
+                @method('PUT')
 
-                            <label class="block text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">
+                <!-- Nama Bahan -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Nama Bahan <span class="text-rose-500">*</span>
+                    </label>
+                    <input type="text" name="nama_bahan" value="{{ old('nama_bahan', $material->nama_bahan) }}"
+                        placeholder="Contoh: Semen Portland 50kg, Pasir Pasang, dll."
+                        class="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-800 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200/50 outline-none transition"
+                        required>
+                    @error('nama_bahan')
+                        <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
 
-                                Nama Bahan
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                                <span class="text-rose-500">*</span>
+                    <!-- Satuan -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                            Satuan <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" name="satuan" value="{{ old('satuan', $material->satuan) }}"
+                            placeholder="Contoh: Sak, m3, kg, bh"
+                            class="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-800 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200/50 outline-none transition"
+                            required>
+                        @error('satuan')
+                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                            </label>
-
-                            <input type="text" name="nama_bahan"
-                                value="{{ old('nama_bahan', $material->nama_bahan) }}"
-                                class="w-full rounded-lg border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-200"
-                                required />
-
-                            @error('nama_bahan')
-                                <p class="text-xs text-rose-600 mt-1">
-
-                                    {{ $message }}
-
-                                </p>
-                            @enderror
-
+                    <!-- Harga Satuan -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                            Harga Satuan <span class="text-rose-500">*</span>
+                        </label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-3 text-sm font-semibold text-slate-400">
+                                Rp
+                            </span>
+                            <input type="number" name="harga_satuan"
+                                value="{{ old('harga_satuan', $material->harga_satuan) }}" min="0" placeholder="0"
+                                class="w-full rounded-2xl border border-slate-200 bg-white/70 pl-11 pr-4 py-3 text-sm text-slate-800 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200/50 outline-none transition"
+                                required>
                         </div>
-
-                        <!-- SATUAN + HARGA -->
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                            <!-- Satuan -->
-
-                            <div>
-
-                                <label class="block text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">
-
-                                    Satuan
-
-                                    <span class="text-rose-500">*</span>
-
-                                </label>
-
-                                <input type="text" name="satuan" value="{{ old('satuan', $material->satuan) }}"
-                                    class="w-full rounded-lg border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-200"
-                                    required />
-
-                                @error('satuan')
-                                    <p class="text-xs text-rose-600 mt-1">
-
-                                        {{ $message }}
-
-                                    </p>
-                                @enderror
-
-                            </div>
-
-                            <!-- Harga -->
-
-                            <div>
-
-                                <label class="block text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">
-
-                                    Harga Satuan
-
-                                    <span class="text-rose-500">*</span>
-
-                                </label>
-
-                                <div class="relative">
-
-                                    <span class="absolute left-3 top-2.5 text-sm font-semibold text-slate-400">
-
-                                        Rp
-
-                                    </span>
-
-                                    <input type="number" name="harga_satuan"
-                                        value="{{ old('harga_satuan', $material->harga_satuan) }}" min="0"
-                                        class="w-full rounded-lg border-slate-300 text-sm pl-10 focus:border-indigo-500 focus:ring-indigo-200"
-                                        required />
-
-                                </div>
-
-                                @error('harga_satuan')
-                                    <p class="text-xs text-rose-600 mt-1">
-
-                                        {{ $message }}
-
-                                    </p>
-                                @enderror
-
-                            </div>
-
-                        </div>
-
-                        <!-- KETERANGAN -->
-
-                        <div>
-
-                            <label class="block text-xs font-bold uppercase tracking-wide text-slate-700 mb-2">
-
-                                Keterangan
-
-                            </label>
-
-                            <textarea name="keterangan" rows="4"
-                                class="w-full rounded-lg border-slate-300 text-sm focus:border-indigo-500 focus:ring-indigo-200">{{ old('keterangan', $material->keterangan) }}</textarea>
-
-                            @error('keterangan')
-                                <p class="text-xs text-rose-600 mt-1">
-
-                                    {{ $message }}
-
-                                </p>
-                            @enderror
-
-                        </div>
-
-                        <!-- BUTTON -->
-
-                        <div class="pt-6 border-t border-slate-100 flex justify-end gap-3">
-
-                            <a href="{{ route('materials.index') }}"
-                                class="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium rounded-lg transition">
-
-                                Batal
-
-                            </a>
-
-                            <button type="submit"
-                                class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg shadow-sm transition">
-
-                                Update Material
-
-                            </button>
-
-                        </div>
-
-                    </form>
+                        @error('harga_satuan')
+                            <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                        @enderror
+                    </div>
 
                 </div>
 
-            </div>
+                <!-- Keterangan -->
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                        Keterangan
+                    </label>
+                    <textarea name="keterangan" rows="3" placeholder="Tambahkan detail atau spesifikasi material (opsional)..."
+                        class="w-full rounded-2xl border border-slate-200 bg-white/70 px-4 py-3 text-sm text-slate-800 shadow-sm focus:border-indigo-400 focus:ring-2 focus:ring-indigo-200/50 outline-none transition">{{ old('keterangan', $material->keterangan) }}</textarea>
+                    @error('keterangan')
+                        <p class="text-xs text-rose-600 mt-1.5 font-medium">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-6 border-t border-slate-200/60 flex items-center justify-end gap-3">
+
+                    <a href="{{ route('materials.index') }}"
+                        class="px-5 py-2.5 rounded-2xl border border-slate-200 bg-white text-slate-600 text-xs font-semibold hover:bg-slate-50 transition">
+                        Batal
+                    </a>
+
+                    <button type="submit"
+                        class="inline-flex items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-6 py-2.5 text-xs font-semibold text-white shadow-lg shadow-indigo-600/30 hover:bg-indigo-700 transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Update Material
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 

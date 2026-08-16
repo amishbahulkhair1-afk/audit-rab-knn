@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'; // <-- 1. Tambahkan baris ini
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/dashboard.js'],
             refresh: true,
         }),
         vue(), // <-- 2. Tambahkan fungsi ini di dalam array plugins

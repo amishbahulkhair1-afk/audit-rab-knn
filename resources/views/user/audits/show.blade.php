@@ -1,15 +1,15 @@
 @extends('layouts.user')
 @section('content')
     <div class="py-8">
-        <div class="max-w-7xl mx-auto px-6 space-y-8">
+        <div class="w-full space-y-8">
             {{-- HEADER --}}
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm text-slate-500">Dashboard / Audit / Detail</p>
                     <h1 class="text-3xl font-bold text-slate-800 mt-1">Detail Audit Bangunan</h1>
                     <p class="text-slate-500 mt-2">Informasi lengkap audit bangunan, hasil klasifikasi KNN, serta estimasi RAB.</p>
                 </div>
-                <div class="flex gap-3">
+                <div class="flex flex-col gap-3 sm:flex-row">
                     <a href="{{ route('audits.index') }}"
                         class="px-5 py-2.5 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 font-semibold">Kembali</a>
                     <a href="{{ route('audits.pdf', $audit->id) }}" target="_blank"
@@ -94,7 +94,7 @@
                                     <span class="font-bold">{{ $detail->nilai }}</span>
                                 </div>
                                 <div class="w-full bg-slate-200 rounded-full h-3">
-                                    <div class="h-3 rounded-full bg-blue-600" style="width:{{ $detail->nilai }}%"></div>
+                                    <div class="h-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500" style="width:{{ $detail->nilai * 20 }}%"></div>
                                 </div>
                             </div>
                         @endforeach

@@ -1,7 +1,7 @@
 @extends('layouts.user')
 
 @section('content')
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-2xl font-bold text-slate-800">Detail RAB</h2>
         <a href="{{ url()->previous() }}" class="text-sm text-slate-500 hover:text-slate-800 transition">
             &larr; Kembali
@@ -26,40 +26,27 @@
             </div>
         </div>
 
-        <!-- Tabel Detail Pekerjaan -->
-        <div class="overflow-x-auto">
-            <table class="w-full text-sm">
-                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
-                    <tr>
-                        <th class="px-4 py-3 text-center">No</th>
-                        <th class="px-4 py-3 text-left">Pekerjaan</th>
-                        <th class="px-4 py-3 text-right">Volume</th>
-                        <th class="px-4 py-3 text-right">Harga Satuan</th>
-                        <th class="px-4 py-3 text-right">Subtotal</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                    @foreach ($rab->details as $detail)
-                        <tr class="hover:bg-slate-50 transition">
-                            <td class="px-4 py-3 text-center text-slate-500">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3 font-medium text-slate-800">{{ $detail->ahsp->nama_pekerjaan }}</td>
-                            <td class="px-4 py-3 text-right text-slate-600">
-                                {{ number_format($detail->volume, 2, ',', '.') }}</td>
-                            <td class="px-4 py-3 text-right text-slate-600">Rp
-                                {{ number_format($detail->harga_satuan, 0, ',', '.') }}</td>
-                            <td class="px-4 py-3 text-right font-semibold text-slate-800">Rp
-                                {{ number_format($detail->subtotal, 0, ',', '.') }}</td>
-                        </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="border-t-2 border-slate-100">
-                        <td colspan="4" class="px-4 py-4 text-right font-bold text-slate-800">Total Keseluruhan</td>
-                        <td class="px-4 py-4 text-right font-bold text-emerald-600 text-lg">Rp
-                            {{ number_format($rab->total_biaya, 0, ',', '.') }}</td>
-                    </tr>
-                </tfoot>
-            </table>
+        <!-- Detail Pekerjaan -->
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            @forelse ($rab->details as $detail)
+                <article class="rounded-2xl border border-slate-200/70 bg-slate-50/70 p-5">
+                    <div class="flex items-start justify-between gap-3">
+                        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-sm font-bold text-emerald-700">{{ $loop->iteration }}</span>
+                        <p class="text-lg font-bold text-emerald-600">Rp {{ number_format($detail->subtotal, 0, ',', '.') }}</p>
+                    </div>
+                    <h3 class="mt-4 font-bold text-slate-900">{{ $detail->ahsp->nama_pekerjaan }}</h3>
+                    <div class="mt-3 grid grid-cols-2 gap-3 text-sm">
+                        <div><p class="text-xs text-slate-400">Volume</p><p class="font-semibold text-slate-700">{{ number_format($detail->volume, 2, ',', '.') }}</p></div>
+                        <div><p class="text-xs text-slate-400">Harga Satuan</p><p class="font-semibold text-slate-700">Rp {{ number_format($detail->harga_satuan, 0, ',', '.') }}</p></div>
+                    </div>
+                </article>
+            @empty
+                <p class="col-span-full rounded-2xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-400">Belum ada detail pekerjaan.</p>
+            @endforelse
+        </div>
+        <div class="mt-6 flex items-center justify-between rounded-2xl bg-emerald-50 p-5">
+            <span class="font-bold text-slate-800">Total Keseluruhan</span>
+            <span class="text-xl font-extrabold text-emerald-600">Rp {{ number_format($rab->total_biaya, 0, ',', '.') }}</span>
         </div>
     </div>
 @endsection

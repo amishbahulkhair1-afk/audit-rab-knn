@@ -1,69 +1,73 @@
 import { createApp } from "vue";
 import Chart from "chart.js/auto";
 
-import TabelAhspDetail from "./components/TabelAhspDetail.vue";
-import FormAhsp from "./components/FormAhsp.vue";
-import DataTable from "./components/DataTable.vue";
-import Badge from "./components/Badge.vue";
-import TableAction from "./components/TableAction.vue";
-import BaseForm from "./components/BaseForm.vue";
-import FormField from "./components/FormField.vue";
-import FormInput from "./components/FormInput.vue";
-import FormCurrency from "./components/FormCurrency.vue";
-import FormTextarea from "./components/FormTextarea.vue";
+import "flowbite";
+
+import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+
+// Business Components
+import TabelAhspDetail from "./components/ahsp/TabelAhspDetail.vue";
+import FormAhsp from "./components/ahsp/FormAhsp.vue";
+import UiButton from './components/ui/UiButton.vue'
+import UiCard from './components/ui/UiCard.vue'
+import UiInput from './components/ui/UiInput.vue'
+import UiSelect from './components/ui/UiSelect.vue'
+import UiBadge from './components/ui/UiBadge.vue'
+import UiDatePicker from './components/ui/UiDatePicker.vue'
+import UiDateTime from './components/ui/UiDateTimePicker.vue'
+import UiDropdown from './components/ui/UiDropdown.vue'
+import UiTextarea from './components/ui/UiTextarea.vue';
+import UiModal from './components/ui/UiModal.vue';
+import UiPagination from './components/ui/UiPagination.vue';
+import DataTable from './components/ui/DataTable.vue'
+import TableActions from './components/ui/TableActions.vue'
+
+export default {
+    darkMode: "class",
+    content: [
+        "./resources/**/*.blade.php",
+        "./resources/**/*.js",
+        "./resources/**/*.vue",
+    ],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+};
 
 window.Chart = Chart;
 
 const app = createApp({
-    data() {
-        return {
-            sidebarOpen: false,
-            sidebarMini: false,
-            userMenu: false,
-        };
-    },
-
-    methods: {
-        toggleMini() {
-            this.sidebarMini = !this.sidebarMini;
-        },
-
-        toggleSidebar() {
-            this.sidebarOpen = !this.sidebarOpen;
-        },
-
-        closeSidebar() {
-            this.sidebarOpen = false;
-        },
-
-        closeUserMenu() {
-            this.userMenu = false;
-        },
-
-        toggleMobileMenu() {
-            this.sidebarOpen = !this.sidebarOpen;
-        },
+    mounted() {
+        flatpickr(".datepicker", {
+            dateFormat: "Y-m-d",
+            altInput: true,
+            altFormat: "d F Y",
+        });
     },
 });
 
-app.component("tabel-ahsp-detail", TabelAhspDetail);
+// Register Components
+app.component("TabelAhspDetail", TabelAhspDetail);
+app.component("FormAhsp", FormAhsp);
+app.component("UiButton", UiButton);
+app.component('UiCard', UiCard);
+app.component('UiInput', UiInput);
+app.component('UiSelect', UiSelect);
+app.component('UiBadge', UiBadge);
+app.component('UiDatePicker', UiDatePicker);
+app.component('UiDateTimePicker', UiDateTimePicker);
+app.component('UiDateTime', UiDateTime);
+app.component('UiDropdown', UiDropdown);
+app.component('UiTextarea', UiTextarea);
+app.component('UiModal', UiModal);
+app.component('UiPagination', UiPagination);
+app.component('data-table', DataTable)
+app.component('table-actions', TableActions)
 
-app.component("form-ahsp", FormAhsp);
+const appRoot = document.getElementById("app");
 
-app.component("DataTable", DataTable);
-
-app.component("Badge", Badge);
-
-app.component("TableAction", TableAction);
-
-app.component("BaseForm", BaseForm);
-
-app.component("FormField", FormField);
-
-app.component("FormInput", FormInput);
-
-app.component("FormCurrency", FormCurrency);
-
-app.component("FormTextarea", FormTextarea);
-
-app.mount("#app");
+if (appRoot) {
+    app.mount(appRoot);
+}

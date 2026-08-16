@@ -1,8 +1,7 @@
 @extends('layouts.user')
 
 @section('content')
-    <div class="py-10">
-        <div class="max-w-4xl mx-auto">
+    <div class="mx-auto max-w-5xl">
 
             <div class="mb-8">
                 <h2 class="text-2xl font-bold text-slate-900">{{ __('Audit Bangunan') }}</h2>
@@ -19,7 +18,7 @@
                         {{ __('Pilih Bangunan') }} <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span>
                     </label>
                     <select name="building_id"
-                        class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                        class="w-full rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 text-sm"
                         {{ $selectedBuilding ? 'disabled' : '' }} required>
                         <option value="">{{ __('Pilih Bangunan...') }}</option>
                         @foreach ($buildings as $building)
@@ -41,7 +40,7 @@
                             {{ __('Tanggal Audit') }} <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span>
                         </label>
                         <input type="date" name="tanggal_audit" value="{{ date('Y-m-d') }}"
-                            class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                            class="w-full rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 text-sm"
                             required>
                     </div>
 
@@ -65,7 +64,7 @@
                             <div class="space-y-1.5">
                                 <label class="block text-xs font-semibold text-slate-700">{{ $label }} <span class="text-rose-500 font-bold ml-0.5" title="Wajib diisi">*</span></label>
                                 <select name="{{ $name }}"
-                                    class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                                    class="w-full rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 text-sm"
                                     required>
                                     <option value="">{{ __('Pilih Nilai...') }}</option>
                                     <option value="1">1 - Rusak Berat</option>
@@ -83,7 +82,7 @@
                             {{ __('Catatan Audit') }}
                         </label>
                         <textarea name="catatan" rows="3"
-                            class="w-full rounded-lg border-slate-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                            class="w-full rounded-lg border-slate-200 focus:border-emerald-500 focus:ring-emerald-500 text-sm"
                             placeholder="Tambahkan catatan tambahan..."></textarea>
                     </div>
                 </div>

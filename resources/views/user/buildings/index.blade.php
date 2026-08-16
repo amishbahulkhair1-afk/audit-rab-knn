@@ -3,7 +3,7 @@
 @section('content')
     <div class="py-8">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
+        <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <h2 class="text-2xl font-bold text-slate-800">Data Bangunan</h2>
                 <p class="text-slate-500 text-sm">Kelola daftar seluruh bangunan dan informasi teknisnya.</p>
@@ -17,7 +17,7 @@
         <!-- Tabel Data -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
+                <table class="user-building-card-list w-full text-sm text-left">
                     <thead class="bg-slate-50 text-slate-600 uppercase text-[10px] tracking-widest">
                         <tr>
                             <th class="px-6 py-4">Nama Bangunan</th>

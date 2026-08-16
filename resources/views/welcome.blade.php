@@ -127,7 +127,7 @@
                                     class="block w-full rounded-lg bg-slate-50 px-3.5 py-2.5 text-base text-slate-900 border border-slate-300 placeholder:text-slate-400 focus:bg-white focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-600 sm:text-sm">
                             </div>
                             @error('password')
-                                <p class="mt-1.5 text-sm text-red-600">{{ $message %>p>
+                                <p class="mt-1.5 text-sm text-red-600">{{ $message }}</p>
 @enderror
                             </div>
 
